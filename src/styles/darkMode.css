@@ -1,0 +1,39 @@
+
+/* Dark mode styles */
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: #121212;
+  color: #f0f0f0;
+}
+
+html.dark .bg-white {
+  background-color: #1e1e1e !important;
+}
+
+html.dark .bg-background {
+  background-color: #121212 !important;
+}
+
+html.dark .bg-muted\/50 {
+  background-color: rgba(35, 35, 35, 0.5) !important;
+}
+
+html.dark .bg-gradient-to-br.from-stockease-50\/30.via-white.to-indigo-50\/30 {
+  background: linear-gradient(to bottom right, rgba(15, 15, 30, 0.4), rgba(20, 20, 20, 0.9), rgba(15, 15, 30, 0.4));
+}
+
+html.dark .border-stockease-100 {
+  border-color: rgba(60, 60, 70, 0.8) !important;
+}
+
+html.dark .text-stockease-600 {
+  color: #a8b7ff !important;
+}
+
+html.dark .bg-white.shadow-md {
+  background-color: #1e1e1e !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
+}

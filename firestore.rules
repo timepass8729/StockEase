@@ -1,0 +1,42 @@
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Users can read/write their own user document
+    // Admin users can read all user documents for user management
+    // Allow reading users collection for forgot password functionality (by email query)
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read: if request.auth != null;
+      // Allow reading user document for email verification in forgot password flow
+      allow read: if request.auth == null;
+      allow write: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+      // Allow password updates for forgot password functionality (unauthenticated)
+      allow update: if request.auth == null && 
+        request.resource.data.keys().hasAny(['password', 'lastPasswordUpdate', 'passwordResetAt']);
+    }
+    
+    // Users can read/write their own userSettings document
+    match /userSettings/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Users can read/write backup documents they created
+    match /backups/{document} {
+      allow read, write: if request.auth != null;
+    }
+    
+    // Allow authenticated users to read/write inventory, sales, suppliers
+    match /inventory/{document} {
+      allow read, write: if request.auth != null;
+    }
+    
+    match /sales/{document} {
+      allow read, write: if request.auth != null;
+    }
+    
+    match /suppliers/{document} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
